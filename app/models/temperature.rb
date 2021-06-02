@@ -5,13 +5,57 @@ class Temperature
     @state = state.strip
   end
 
+  def forecast
+    coor = coordinates
+    return [] if coor.blank?
+
+    grid_url = points_url(coor[0], coor[1])
+    forecast_url = grid_endpoint(grid_url)
+    return [] if forecast_url.blank?
+
+    grid_forecast(forecast_url)
+  rescue StandardError => exc
+    Rails.logger.warn exc.message
+    []
+  end
+
   def coordinates
     search = @city + ', ' + @state
     locations = Geocoder.search(search)
+
     if locations.empty?
-      return locations
+      locations
     else
-      return locations.first.coordinates
+      locations.first.coordinates
+    end
+  end
+
+  def points_url(lat, lon)
+    points_url = 'https://api.weather.gov/points/'
+    points_url += lat.round(4).to_s
+    points_url += ','
+    points_url += lon.round(4).to_s
+  end
+
+  def grid_endpoint(points_url)
+    result = Faraday.get points_url
+
+    if result.status != 200
+      ''
+    else
+      json_body = JSON.parse(result.body)
+      json_body.dig('properties', 'forecast')
+    end
+  end
+
+  def grid_forecast(forecast_url)
+    result = Faraday.get forecast_url
+
+    if result.status != 200
+      ''
+    else
+      json_body = JSON.parse(result.body)
+      json_body.dig('properties', 'periods')
     end
   end
 end
