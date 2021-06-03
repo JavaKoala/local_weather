@@ -1,34 +1,47 @@
 <template>
   <div id="app">
-    <h2>Welcome to the temperature forecast</h2>
+    <div style="margin: auto;width: 75%;">
+      <div class="jumbotron">
+        <h1>Welcome to the temperature forecast</h1>
+        <h4>Please enter your city and state</h4>
+      </div>
 
-    <h4>Please enter your city and state</h4>
-    <ValidationObserver v-slot="{ invalid }">
-      <form @submit.prevent="getForecast">
-        <ValidationProvider name="City" rules="required" v-slot="{ errors }">
-          <input v-model="city" type="text">
-          <span>{{ errors[0] }}</span>
-        </ValidationProvider>
+      <ValidationObserver v-slot="{ invalid }">
+        <form @submit.prevent="getForecast">
+          <div>
+            <ValidationProvider name="City" rules="required" v-slot="{ errors }">
+              <label for="city">City</label>
+              <input v-model="city" type="text">
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+          </div>
 
-        <ValidationProvider name="State" rules="required" v-slot="{ errors }">
-          <input v-model="state" type="text">
-          <span>{{ errors[0] }}</span>
-        </ValidationProvider>
+          <div>
+            <ValidationProvider name="State" rules="required" v-slot="{ errors }">
+              <label for="state">State</label>
+              <input v-model="state" type="text">
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+          </div>
 
-        <button type="submit" :disabled="invalid">Get forecast</button>
-      </form>
-    </ValidationObserver>
+          <button type="submit" class="btn btn-primary btn-lg" :disabled="invalid">Get forecast</button>
+        </form>
+      </ValidationObserver>
 
-    <p>
-      Cache hit: {{ cacheHit }}
-    </p>
+      <p>
+        Cache hit: {{ cacheHit }}
+      </p>
 
-    <h3>
-      Forecast:
-    </h3>
+    </div>
 
-    <div>
-      <b-table striped hover :items="forecast" :fields="forecastFields"></b-table>
+    <div style="margin: auto;width: 90%;">
+      <h3>
+        Forecast:
+      </h3>
+
+      <div>
+        <b-table striped hover :items="forecast" :fields="forecastFields"></b-table>
+      </div>
     </div>
   </div>
 </template>
