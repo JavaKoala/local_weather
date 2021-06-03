@@ -2,6 +2,7 @@
   <div id="app">
     <h2>Welcome to the temperature forecast</h2>
 
+    <h4>Please enter your city and state</h4>
     <input v-model="city" placeholder="City">
     <input v-model="state" placeholder="State">
     <br />
@@ -9,11 +10,16 @@
     <button v-on:click="getForecast">Get forecast</button>
 
     <p>
-      {{ cacheHit }}
+      Cache hit: {{ cacheHit }}
     </p>
-    <p>
-      {{ forecast }}
-    </p>
+
+    <h3>
+      Forecast:
+    </h3>
+
+    <div>
+      <b-table striped hover :items="forecast" :fields="forecastFields"></b-table>
+    </div>
   </div>
 </template>
 
@@ -24,13 +30,12 @@ export default {
       city: '',
       state: '',
       cacheHit: false,
+      forecastFields: [ 'name', 'temperature', 'temperatureUnit', 'detailedForecast' ],
       forecast: [],
     }
   },
   methods: {
     async getForecast() {
-      console.log(this.city + ' ' + this.state);
-
       const params = new URLSearchParams();
       params.append('city', this.city);
       params.append('state', this.state);
@@ -46,8 +51,5 @@ export default {
 </script>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
+
 </style>
