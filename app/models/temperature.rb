@@ -9,7 +9,7 @@ class Temperature
     result = { cache_hit: true }
 
     cache_key = Digest::SHA1.hexdigest @city + @state
-    result[:forcast] = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+    result[:forecast] = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
       result[:cache_hit] = false
       forecast
     end
