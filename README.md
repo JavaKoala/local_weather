@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Enable the rails cache in development
+
+```
+bundle exec rails dev:cache
+```
