@@ -13,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+
+.search-container {
+  margin: auto;
+  width: 75%;
+}
+
+.forecast-form {
+  margin-bottom: 15px;
+}
+
+.city-state-input {
+  width:40px;
+}
+
+.error-label {
+  color: red;
+}
+
+.forcast-container {
+  margin: auto;
+  width: 90%;
+}

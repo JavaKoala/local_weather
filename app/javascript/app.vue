@@ -1,26 +1,26 @@
 <template>
   <div id="app">
-    <div style="margin: auto;width: 75%;">
+    <div class="search-container">
       <div class="jumbotron">
         <h1>Welcome to the temperature forecast</h1>
         <h4>Please enter your city and state</h4>
       </div>
 
       <ValidationObserver v-slot="{ invalid }">
-        <form @submit.prevent="getForecast">
-          <div>
+        <form @submit.prevent="getForecast" class="forecast-form">
+          <div class="form-group">
             <ValidationProvider name="City" rules="required" v-slot="{ errors }">
-              <label for="city">City</label>
+              <label for="city" class="city-state-input">City</label>
               <input v-model="city" type="text">
-              <span>{{ errors[0] }}</span>
+              <span class="error-label">{{ errors[0] }}</span>
             </ValidationProvider>
           </div>
 
-          <div>
+          <div class="form-group">
             <ValidationProvider name="State" rules="required" v-slot="{ errors }">
-              <label for="state">State</label>
+              <label for="state" class="city-state-input">State</label>
               <input v-model="state" type="text">
-              <span>{{ errors[0] }}</span>
+              <span class="error-label">{{ errors[0] }}</span>
             </ValidationProvider>
           </div>
 
@@ -34,7 +34,7 @@
 
     </div>
 
-    <div style="margin: auto;width: 90%;">
+    <div class="forcast-container">
       <h3>
         Forecast:
       </h3>
@@ -87,6 +87,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
