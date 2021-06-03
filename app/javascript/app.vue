@@ -52,6 +52,8 @@ export default {
   },
   methods: {
     async getForecast() {
+      this.forecast = [];
+
       const params = new URLSearchParams();
       params.append('city', this.city);
       params.append('state', this.state);

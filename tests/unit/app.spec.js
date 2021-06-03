@@ -30,6 +30,7 @@ describe('app.vue', () => {
       );
 
       const wrapper = shallowMount(App);
+      wrapper.vm.forecast = ['warm and sunny'];
       await wrapper.vm.getForecast();
 
       expect(wrapper.vm.forecast).toEqual([]);
