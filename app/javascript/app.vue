@@ -28,8 +28,9 @@
         </form>
       </ValidationObserver>
 
-      <p>
-        Cache hit: {{ cacheHit }}
+      <p>Cache hit: {{ cacheHit }}</p>
+      <p v-if="foundCity === false">
+        Found city: false
       </p>
 
     </div>
@@ -58,7 +59,8 @@ export default {
     return {
       city: '',
       state: '',
-      cacheHit: false,
+      cacheHit: '',
+      foundCity: true,
       forecastFields: [ 'name', 'temperature', 'temperatureUnit', 'detailedForecast' ],
       forecast: [],
     }
@@ -66,6 +68,7 @@ export default {
   methods: {
     async getForecast() {
       this.forecast = [];
+      this.cacheHit = '';
 
       const params = new URLSearchParams();
       params.append('city', this.city);
@@ -77,6 +80,9 @@ export default {
       this.cacheHit = forecastJson.cache_hit;
       if (Array.isArray(forecastJson.forecast)) {
         this.forecast = forecastJson.forecast;
+        this.foundCity = true;
+      } else {
+        this.foundCity = false;
       }
     }
   },

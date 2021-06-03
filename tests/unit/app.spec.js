@@ -19,6 +19,7 @@ describe('app.vue', () => {
       await wrapper.vm.getForecast();
 
       expect(wrapper.vm.cacheHit).toEqual(true);
+      expect(wrapper.vm.foundCity).toEqual(true);
       expect(wrapper.vm.forecast).toEqual(['test-forecast']);
     });
 
@@ -33,6 +34,7 @@ describe('app.vue', () => {
       wrapper.vm.forecast = ['warm and sunny'];
       await wrapper.vm.getForecast();
 
+      expect(wrapper.vm.foundCity).toEqual(false);
       expect(wrapper.vm.forecast).toEqual([]);
     });
   });
