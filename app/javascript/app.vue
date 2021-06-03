@@ -43,8 +43,10 @@ export default {
       const forecast = await fetch(`/forecast?${params.toString()}`);
       const forecastJson = await forecast.json();
 
-      this.cacheHit = forecastJson.cache_hit
-      this.forecast = forecastJson.forecast
+      this.cacheHit = forecastJson.cache_hit;
+      if (Array.isArray(forecastJson.forecast)) {
+        this.forecast = forecastJson.forecast;
+      }
     }
   }
 }
