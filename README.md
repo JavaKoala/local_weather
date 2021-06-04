@@ -1,30 +1,53 @@
-# README
+# Weather Forecast
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Ruby on Rails demostration project
 
-Things you may want to cover:
+### Weather retrieval
 
-* Ruby version
+The weather retrieval uses Geocoder and the weather.gov API
 
-* System dependencies
+* Geocoder ( http://www.rubygeocoder.com/ ) is used to determine the latitude and longitude of a given city and state. Not every city is returned.
 
-* Configuration
+* National Weather Service API ( https://www.weather.gov/documentation/services-web-api ) is used with the city's longitude and latitude to return the forecast.
 
-* Database creation
+## Setup
 
-* Database initialization
+1. Install Ruby version 2.7.3
 
-* How to run the test suite
+2. Install bundler and bundle install
+```
+gem install bundler
+bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Install yarn and yarn install
+```
+yarn install
+```
 
-* Deployment instructions
+4. Run the tests
+```
+bundle exec rspec
+yarn jest
+```
 
-* ...
-
-Enable the rails cache in development
-
+5. Enable the Rails cache in development
 ```
 bundle exec rails dev:cache
 ```
+
+6. Run the webpack dev server
+```
+./bin/webpack-dev-server
+```
+
+7. Run the rails server
+```
+bundle exec rails s
+```
+
+8. Navigate to http://localhost:3000/ and enter your city and state for the forecast
+
+## Next steps
+
+The next step is to use a reliable API to retrieve the weather, possibly https://openweathermap.org/api
