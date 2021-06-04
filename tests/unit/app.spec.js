@@ -21,6 +21,7 @@ describe('app.vue', () => {
       expect(wrapper.vm.cacheHit).toEqual(true);
       expect(wrapper.vm.foundCity).toEqual(true);
       expect(wrapper.vm.forecast).toEqual(['test-forecast']);
+      expect(wrapper.vm.loading).toEqual(false);
     });
 
     it('does not update forcast when it is not an array', async () => {
@@ -36,6 +37,7 @@ describe('app.vue', () => {
 
       expect(wrapper.vm.foundCity).toEqual(false);
       expect(wrapper.vm.forecast).toEqual([]);
+      expect(wrapper.vm.loading).toEqual(false);
     });
   });
 });

@@ -35,7 +35,7 @@
 
     </div>
 
-    <div class="forcast-container">
+    <div v-if="loading === false" class="forcast-container">
       <h3>
         Forecast:
       </h3>
@@ -43,6 +43,8 @@
       <div>
         <b-table striped hover :items="forecast" :fields="forecastFields"></b-table>
       </div>
+    </div>
+    <div v-else class="loader">
     </div>
   </div>
 </template>
@@ -57,16 +59,18 @@ extend('required', required);
 export default {
   data() {
     return {
-      city: '',
-      state: '',
       cacheHit: '',
-      foundCity: true,
+      city: '',
       forecastFields: [ 'name', 'temperature', 'temperatureUnit', 'detailedForecast' ],
       forecast: [],
+      foundCity: true,
+      loading: false,
+      state: '',
     }
   },
   methods: {
     async getForecast() {
+      this.loading = true;
       this.forecast = [];
       this.cacheHit = '';
 
@@ -84,6 +88,8 @@ export default {
       } else {
         this.foundCity = false;
       }
+
+      this.loading = false;
     }
   },
   components: {
