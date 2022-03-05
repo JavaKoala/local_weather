@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { BTable } from 'bootstrap-vue';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
@@ -93,6 +94,7 @@ export default {
     }
   },
   components: {
+    BTable,
     ValidationObserver,
     ValidationProvider
   }
