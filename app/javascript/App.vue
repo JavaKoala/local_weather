@@ -99,3 +99,41 @@ export default {
 }
 </script>
 
+<style scoped>
+  .search-container {
+    margin: auto;
+    width: 75%;
+  }
+
+  .forecast-form {
+    margin-bottom: 15px;
+  }
+
+  .city-state-input {
+    width: 40px;
+  }
+
+  .error-label {
+    color: #FF0000;
+  }
+  .loader {
+    margin: auto;
+    border: 7px solid #f3f3f3;
+    border-top: 7px solid #708090;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .forcast-container {
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
