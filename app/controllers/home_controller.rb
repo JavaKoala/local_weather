@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
   end
 
-  def forecast
+  def show
     if address_params[:city].blank? || address_params[:state].blank?
       return render plain: 'unprocessable_entity', status: 422
     end
