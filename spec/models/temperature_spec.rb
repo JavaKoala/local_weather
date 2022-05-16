@@ -1,9 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe Temperature do
-  let(:temp) { described_class.new('Gibsonia', 'PA') }
+  let(:city) { 'Gibsonia' }
+  let(:state) { 'PA' }
+  let(:temp) { described_class.new(city, state) }
   let(:coordinates) { [40.6300671, -79.9695004] }
   let(:geo_result) { instance_double('Geocoder::Result::Nominatim', coordinates: coordinates) }
+
+  describe '.forecast_cache' do
+    let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+    let(:cache) { Rails.cache }
+
+    before do
+      allow(Rails).to receive(:cache).and_return(memory_store)
+      Rails.cache.clear
+    end
+
+    after(:all) do
+      Rails.cache.clear
+    end
+
+    it 'returns forecast from cache' do
+      cache_key = Digest::SHA1.hexdigest city + state
+      Rails.cache.write(cache_key, 'cold and rainy')
+
+      expect(temp.forecast_cache).to eq({ cache_hit: true, forecast: 'cold and rainy' })
+    end
+
+    it 'calls forecast when not in cache' do
+      allow(temp).to receive(:forecast).and_return('partly cloudy')
+
+      expect(temp.forecast_cache).to eq({ cache_hit: false, forecast: 'partly cloudy' })
+    end
+  end
 
   describe '.forecast' do
     it 'returns the forecast' do
