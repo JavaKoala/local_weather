@@ -12,7 +12,7 @@ The weather retrieval uses Geocoder and the weather.gov API
 
 ## Setup
 
-1. Install Ruby version 2.7.5
+1. Install Ruby version 3.1.2
 
 2. Install bundler and bundle install
 ```
