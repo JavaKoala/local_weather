@@ -5,7 +5,7 @@ RSpec.describe Temperature do
   let(:state) { 'PA' }
   let(:temp) { described_class.new(city, state) }
   let(:coordinates) { [40.6300671, -79.9695004] }
-  let(:geo_result) { instance_double('Geocoder::Result::Nominatim', coordinates: coordinates) }
+  let(:geo_result) { instance_double('Geocoder::Result::Nominatim', coordinates:) }
 
   describe '.forecast_cache' do
     let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
