@@ -8,12 +8,6 @@
 
 # Offense count: 1
 # This cop supports safe auto-correction (--auto-correct).
-Layout/EmptyLines:
-  Exclude:
-    - 'config/environments/production.rb'
-
-# Offense count: 1
-# This cop supports safe auto-correction (--auto-correct).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
 Layout/EmptyLinesAroundClassBody:
