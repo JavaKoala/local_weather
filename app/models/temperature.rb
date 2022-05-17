@@ -1,5 +1,4 @@
 class Temperature
-
   def initialize(city, state)
     @city = city.strip
     @state = state.strip
