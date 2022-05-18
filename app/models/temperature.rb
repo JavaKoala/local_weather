@@ -42,10 +42,7 @@ class Temperature
   end
 
   def points_url(lat, lon)
-    points_url = 'https://api.weather.gov/points/'
-    points_url += lat.round(4).to_s
-    points_url += ','
-    points_url += lon.round(4).to_s
+    "https://api.weather.gov/points/#{lat.round(4)},#{lon.round(4)}"
   end
 
   def grid_endpoint(points_url)
