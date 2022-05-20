@@ -8,14 +8,6 @@
 
 # Offense count: 1
 # This cop supports safe auto-correction (--auto-correct).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: numeric, symbolic
-Rails/HttpStatus:
-  Exclude:
-    - 'app/controllers/home_controller.rb'
-
-# Offense count: 1
-# This cop supports safe auto-correction (--auto-correct).
 Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
