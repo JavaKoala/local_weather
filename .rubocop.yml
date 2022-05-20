@@ -7,6 +7,9 @@ AllCops:
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
 
+RSpec/ExampleLength:
+  Max: 21
+
 require:
   - rubocop-rails
   - rubocop-rspec
