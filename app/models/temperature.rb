@@ -25,8 +25,8 @@ class Temperature
     return [] if forecast_url.blank?
 
     grid_forecast(forecast_url)
-  rescue StandardError => exc
-    Rails.logger.warn exc.message
+  rescue StandardError => e
+    Rails.logger.warn e.message
     []
   end
 
