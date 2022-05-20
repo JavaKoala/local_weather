@@ -16,7 +16,7 @@ RSpec.describe Temperature do
       Rails.cache.clear
     end
 
-    after(:all) do
+    after do
       Rails.cache.clear
     end
 
