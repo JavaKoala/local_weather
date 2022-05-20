@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Temperature do
-  let(:city) { 'Gibsonia' }
-  let(:state) { 'PA' }
-  let(:temp) { described_class.new(city, state) }
+  let(:temp) { described_class.new('Gibsonia', 'PA') }
   let(:coordinates) { [40.6300671, -79.9695004] }
   let(:geo_result) { instance_double('Geocoder::Result::Nominatim', coordinates:) }
 
@@ -21,7 +19,7 @@ RSpec.describe Temperature do
     end
 
     it 'returns forecast from cache' do
-      cache_key = Digest::SHA1.hexdigest city + state
+      cache_key = Digest::SHA1.hexdigest 'GibsoniaPA'
       Rails.cache.write(cache_key, 'cold and rainy')
 
       expect(temp.forecast_cache).to eq({ cache_hit: true, forecast: 'cold and rainy' })
