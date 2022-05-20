@@ -10,6 +10,9 @@ Metrics/BlockLength:
 RSpec/ExampleLength:
   Max: 21
 
+RSpec/VerifiedDoubleReference:
+  EnforcedStyle: string
+
 require:
   - rubocop-rails
   - rubocop-rspec

@@ -35,12 +35,12 @@ RSpec.describe Temperature do
   describe '.forecast' do
     it 'returns the forecast' do
       grid_endpoint = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
         body: "{\"properties\":{\"forecast\":\"https://www.example.com/points\"}}"
       )
       grid_forecast = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
         body: "{\"properties\":{\"periods\":\"warm and sunny\"}}"
       )
@@ -59,7 +59,7 @@ RSpec.describe Temperature do
 
     it 'returns empty array when there is no grid coordinate' do
       grid_endpoint = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
         body: "{}"
       )
@@ -98,7 +98,7 @@ RSpec.describe Temperature do
 
   describe '.grid_endpoint' do
     it 'returns empty string if the response is not a 200' do
-      response = instance_double('Faraday::Response', status: 400)
+      response = instance_double('Response', status: 400)
       allow(Faraday).to receive(:get).and_return(response)
 
       expect(temp.grid_endpoint('https://www.example.com/')).to eq ''
@@ -106,7 +106,7 @@ RSpec.describe Temperature do
 
     it 'returns the forecast url' do
       response = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
         body: "{\"properties\":{\"forecast\":\"https://www.example.com/points\"}}"
       )
@@ -118,7 +118,7 @@ RSpec.describe Temperature do
 
   describe '.grid_forecast' do
     it 'returns empty string if the response is not a 200' do
-      response = instance_double('Faraday::Response', status: 400)
+      response = instance_double('Response', status: 400)
       allow(Faraday).to receive(:get).and_return(response)
 
       expect(temp.grid_forecast('https://www.example.com/')).to eq ''
@@ -126,7 +126,7 @@ RSpec.describe Temperature do
 
     it 'returns the forecast url' do
       response = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
         body: "{\"properties\":{\"periods\":\"warm and sunny\"}}"
       )
