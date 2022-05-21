@@ -37,12 +37,12 @@ RSpec.describe Temperature do
       grid_endpoint = instance_double(
         'Response',
         status: 200,
-        body: "{\"properties\":{\"forecast\":\"https://www.example.com/points\"}}"
+        body: '{"properties":{"forecast":"https://www.example.com/points"}}'
       )
       grid_forecast = instance_double(
         'Response',
         status: 200,
-        body: "{\"properties\":{\"periods\":\"warm and sunny\"}}"
+        body: '{"properties":{"periods":"warm and sunny"}}'
       )
       allow(Geocoder).to receive(:search).and_return([geo_result])
       allow(Faraday).to receive(:get).with('https://api.weather.gov/points/40.6301,-79.9695').and_return(grid_endpoint)
@@ -61,7 +61,7 @@ RSpec.describe Temperature do
       grid_endpoint = instance_double(
         'Response',
         status: 200,
-        body: "{}"
+        body: '{}'
       )
       allow(Geocoder).to receive(:search).and_return([geo_result])
       allow(Faraday).to receive(:get).with('https://api.weather.gov/points/40.6301,-79.9695').and_return(grid_endpoint)
@@ -108,7 +108,7 @@ RSpec.describe Temperature do
       response = instance_double(
         'Response',
         status: 200,
-        body: "{\"properties\":{\"forecast\":\"https://www.example.com/points\"}}"
+        body: '{"properties":{"forecast":"https://www.example.com/points"}}'
       )
       allow(Faraday).to receive(:get).and_return(response)
 
@@ -128,7 +128,7 @@ RSpec.describe Temperature do
       response = instance_double(
         'Response',
         status: 200,
-        body: "{\"properties\":{\"periods\":\"warm and sunny\"}}"
+        body: '{"properties":{"periods":"warm and sunny"}}'
       )
       allow(Faraday).to receive(:get).and_return(response)
 
