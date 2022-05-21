@@ -48,22 +48,22 @@ class Temperature
   def grid_endpoint(points_url)
     result = Faraday.get points_url
 
-    if result.status != 200
-      ''
-    else
+    if result.status == 200
       json_body = JSON.parse(result.body)
       json_body.dig('properties', 'forecast')
+    else
+      ''
     end
   end
 
   def grid_forecast(forecast_url)
     result = Faraday.get forecast_url
 
-    if result.status != 200
-      ''
-    else
+    if result.status == 200
       json_body = JSON.parse(result.body)
       json_body.dig('properties', 'periods')
+    else
+      ''
     end
   end
 end
