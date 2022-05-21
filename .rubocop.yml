@@ -16,6 +16,9 @@ RSpec/VerifiedDoubleReference:
 Style/Documentation:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 require:
   - rubocop-rails
   - rubocop-rspec
