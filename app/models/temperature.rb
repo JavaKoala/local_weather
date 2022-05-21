@@ -31,7 +31,7 @@ class Temperature
   end
 
   def coordinates
-    search = @city + ', ' + @state
+    search = "#{@city}, #{@state}"
     locations = Geocoder.search(search)
 
     if locations.empty?
