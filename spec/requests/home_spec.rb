@@ -9,28 +9,35 @@ RSpec.describe 'Homes', type: :request do
   end
 
   describe 'GET "/forecast"' do
-    it 'returns 422 if it is missing city' do
-      get '/forecast', params: { state: 'PA' }
+    context 'when missing city' do
+      before do
+        get '/forecast', params: { state: 'PA' }
+      end
 
-      expect(response.status).to eq 422
-      expect(response.body).to eq 'unprocessable_entity'
+      it { expect(response.status).to eq 422 }
+      it { expect(response.body).to eq 'unprocessable_entity' }
     end
 
-    it 'returns 422 if it is missing city' do
-      get '/forecast', params: { city: 'Gibsonia' }
+    context 'when missing state' do
+      before do
+        get '/forecast', params: { city: 'Gibsonia' }
+      end
 
-      expect(response.status).to eq 422
-      expect(response.body).to eq 'unprocessable_entity'
+      it { expect(response.status).to eq 422 }
+      it { expect(response.body).to eq 'unprocessable_entity' }
     end
 
-    it 'returns forecast JSON' do
-      forecast = { cache_hit: true, forecast: 'warm and sunny' }
-      temperature = instance_double('Temperature', forecast_cache: forecast)
-      allow(Temperature).to receive(:new).and_return(temperature)
+    context 'when returning forecast json' do
+      let(:forecast) { { cache_hit: true, forecast: 'warm and sunny' } }
+      let(:temperature) { instance_double('Temperature', forecast_cache: forecast) }
 
-      get '/forecast', params: { city: 'Gibsonia', state: 'PA' }
-      expect(response.status).to eq 200
-      expect(response.body).to eq forecast.to_json
+      before do
+        allow(Temperature).to receive(:new).and_return(temperature)
+        get '/forecast', params: { city: 'Gibsonia', state: 'PA' }
+      end
+
+      it { expect(response.status).to eq 200 }
+      it { expect(response.body).to eq forecast.to_json }
     end
   end
 end

@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Temperature do
-  let(:city) { 'Gibsonia' }
-  let(:state) { 'PA' }
-  let(:temp) { described_class.new(city, state) }
+  let(:temp) { described_class.new('Gibsonia', 'PA') }
   let(:coordinates) { [40.6300671, -79.9695004] }
-  let(:geo_result) { instance_double('Geocoder::Result::Nominatim', coordinates: coordinates) }
+  let(:geo_result) { instance_double('Geocoder::Result::Nominatim', coordinates:) }
 
   describe '.forecast_cache' do
     let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
@@ -16,12 +14,12 @@ RSpec.describe Temperature do
       Rails.cache.clear
     end
 
-    after(:all) do
+    after do
       Rails.cache.clear
     end
 
     it 'returns forecast from cache' do
-      cache_key = Digest::SHA1.hexdigest city + state
+      cache_key = Digest::SHA1.hexdigest 'GibsoniaPA'
       Rails.cache.write(cache_key, 'cold and rainy')
 
       expect(temp.forecast_cache).to eq({ cache_hit: true, forecast: 'cold and rainy' })
@@ -37,14 +35,14 @@ RSpec.describe Temperature do
   describe '.forecast' do
     it 'returns the forecast' do
       grid_endpoint = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
-        body: "{\"properties\":{\"forecast\":\"https://www.example.com/points\"}}"
+        body: '{"properties":{"forecast":"https://www.example.com/points"}}'
       )
       grid_forecast = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
-        body: "{\"properties\":{\"periods\":\"warm and sunny\"}}"
+        body: '{"properties":{"periods":"warm and sunny"}}'
       )
       allow(Geocoder).to receive(:search).and_return([geo_result])
       allow(Faraday).to receive(:get).with('https://api.weather.gov/points/40.6301,-79.9695').and_return(grid_endpoint)
@@ -61,9 +59,9 @@ RSpec.describe Temperature do
 
     it 'returns empty array when there is no grid coordinate' do
       grid_endpoint = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
-        body: "{}"
+        body: '{}'
       )
       allow(Geocoder).to receive(:search).and_return([geo_result])
       allow(Faraday).to receive(:get).with('https://api.weather.gov/points/40.6301,-79.9695').and_return(grid_endpoint)
@@ -100,7 +98,7 @@ RSpec.describe Temperature do
 
   describe '.grid_endpoint' do
     it 'returns empty string if the response is not a 200' do
-      response = instance_double('Faraday::Response', status: 400)
+      response = instance_double('Response', status: 400)
       allow(Faraday).to receive(:get).and_return(response)
 
       expect(temp.grid_endpoint('https://www.example.com/')).to eq ''
@@ -108,9 +106,9 @@ RSpec.describe Temperature do
 
     it 'returns the forecast url' do
       response = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
-        body: "{\"properties\":{\"forecast\":\"https://www.example.com/points\"}}"
+        body: '{"properties":{"forecast":"https://www.example.com/points"}}'
       )
       allow(Faraday).to receive(:get).and_return(response)
 
@@ -120,7 +118,7 @@ RSpec.describe Temperature do
 
   describe '.grid_forecast' do
     it 'returns empty string if the response is not a 200' do
-      response = instance_double('Faraday::Response', status: 400)
+      response = instance_double('Response', status: 400)
       allow(Faraday).to receive(:get).and_return(response)
 
       expect(temp.grid_forecast('https://www.example.com/')).to eq ''
@@ -128,9 +126,9 @@ RSpec.describe Temperature do
 
     it 'returns the forecast url' do
       response = instance_double(
-        'Faraday::Response',
+        'Response',
         status: 200,
-        body: "{\"properties\":{\"periods\":\"warm and sunny\"}}"
+        body: '{"properties":{"periods":"warm and sunny"}}'
       )
       allow(Faraday).to receive(:get).and_return(response)
 

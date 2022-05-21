@@ -1,0 +1,22 @@
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+
+RSpec/ExampleLength:
+  Max: 21
+
+RSpec/VerifiedDoubleReference:
+  EnforcedStyle: string
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+require:
+  - rubocop-rails
+  - rubocop-rspec

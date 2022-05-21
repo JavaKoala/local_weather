@@ -1,5 +1,4 @@
 class Temperature
-
   def initialize(city, state)
     @city = city.strip
     @state = state.strip
@@ -26,13 +25,13 @@ class Temperature
     return [] if forecast_url.blank?
 
     grid_forecast(forecast_url)
-  rescue StandardError => exc
-    Rails.logger.warn exc.message
+  rescue StandardError => e
+    Rails.logger.warn e.message
     []
   end
 
   def coordinates
-    search = @city + ', ' + @state
+    search = "#{@city}, #{@state}"
     locations = Geocoder.search(search)
 
     if locations.empty?
@@ -43,31 +42,28 @@ class Temperature
   end
 
   def points_url(lat, lon)
-    points_url = 'https://api.weather.gov/points/'
-    points_url += lat.round(4).to_s
-    points_url += ','
-    points_url += lon.round(4).to_s
+    "https://api.weather.gov/points/#{lat.round(4)},#{lon.round(4)}"
   end
 
   def grid_endpoint(points_url)
     result = Faraday.get points_url
 
-    if result.status != 200
-      ''
-    else
+    if result.status == 200
       json_body = JSON.parse(result.body)
       json_body.dig('properties', 'forecast')
+    else
+      ''
     end
   end
 
   def grid_forecast(forecast_url)
     result = Faraday.get forecast_url
 
-    if result.status != 200
-      ''
-    else
+    if result.status == 200
       json_body = JSON.parse(result.body)
       json_body.dig('properties', 'periods')
+    else
+      ''
     end
   end
 end
