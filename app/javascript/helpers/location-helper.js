@@ -35,7 +35,6 @@ export function statesHelper() {
     {abbreviation: 'NY'},
     {abbreviation: 'NC'},
     {abbreviation: 'ND'},
-    {abbreviation: 'CM'},
     {abbreviation: 'OH'},
     {abbreviation: 'OK'},
     {abbreviation: 'OR'},
