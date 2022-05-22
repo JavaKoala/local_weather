@@ -19,7 +19,12 @@
           <div class="form-group">
             <ValidationProvider name="State" rules="required" v-slot="{ errors }">
               <label for="state" class="city-state-input">State</label>
-              <input v-model="state" type="text">
+              <select v-model="state">
+                <option disabled value="">Please select a state</option>
+                <option v-for="stateOption in stateOptions" :key="stateOption.abbreviation">
+                  {{stateOption.abbreviation}}
+                </option>
+              </select>
               <span class="error-label">{{ errors[0] }}</span>
             </ValidationProvider>
           </div>
@@ -54,6 +59,7 @@ import { BTable } from 'bootstrap-vue';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
+import { statesHelper } from './helpers/location-helper';
 
 extend('required', required);
 
@@ -67,6 +73,7 @@ export default {
       foundCity: true,
       loading: false,
       state: '',
+      stateOptions: statesHelper(),
     }
   },
   methods: {
