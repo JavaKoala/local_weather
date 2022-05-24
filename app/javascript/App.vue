@@ -22,7 +22,7 @@
               <select v-model="state">
                 <option disabled value="">Please select a state</option>
                 <option v-for="stateOption in stateOptions" :key="stateOption.abbreviation">
-                  {{stateOption.abbreviation}}
+                  {{stateOption.name}}
                 </option>
               </select>
               <span class="error-label">{{ errors[0] }}</span>
