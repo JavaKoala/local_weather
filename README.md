@@ -36,17 +36,23 @@ yarn jest
 bundle exec rails dev:cache
 ```
 
-6. Run the webpack dev server
+6. Run the Cypress specs
+```
+CYPRESS=1 bin/rails server -e test -p 5017
+yarn cypress open
+```
+
+7. Run the webpack dev server
 ```
 ./bin/webpack-dev-server
 ```
 
-7. Run the rails server
+8. Run the rails server
 ```
 bundle exec rails s
 ```
 
-8. Navigate to http://localhost:3000/ and enter your city and state for the forecast
+9. Navigate to http://localhost:3000/ and enter your city and state for the forecast
 
 ## Next steps
 
