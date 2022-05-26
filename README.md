@@ -38,7 +38,7 @@ bundle exec rails dev:cache
 
 6. Run the Cypress specs
 ```
-CYPRESS=1 bin/rails server -e test -p 5017
+CYPRESS=1 bin/rails server -p 5017
 yarn cypress open
 ```
 

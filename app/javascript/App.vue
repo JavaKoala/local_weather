@@ -11,7 +11,7 @@
           <div class="form-group">
             <ValidationProvider name="City" rules="required" v-slot="{ errors }">
               <label for="city" class="city-state-input">City</label>
-              <input v-model="city" type="text">
+              <input id="city-input" v-model="city" type="text">
               <span class="error-label">{{ errors[0] }}</span>
             </ValidationProvider>
           </div>
@@ -19,7 +19,7 @@
           <div class="form-group">
             <ValidationProvider name="State" rules="required" v-slot="{ errors }">
               <label for="state" class="city-state-input">State</label>
-              <select v-model="state">
+              <select id="state-input" v-model="state">
                 <option disabled value="">Please select a state</option>
                 <option v-for="stateOption in stateOptions" :key="stateOption.abbreviation">
                   {{stateOption.name}}
