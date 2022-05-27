@@ -9,17 +9,33 @@
       <ValidationObserver v-slot="{ invalid }">
         <form @submit.prevent="getForecast" class="forecast-form">
           <div class="form-group">
-            <ValidationProvider name="City" rules="required" v-slot="{ errors }">
-              <label for="city" class="city-state-input">City</label>
-              <input id="city-input" v-model="city" type="text">
+            <ValidationProvider
+              name="City"
+              rules="required"
+              v-slot="{ errors }"
+            >
+              <label for="city" class="city-state-label">City</label>
+              <input
+                id="city-input"
+                v-model="city"
+                type="text"
+                class="w-25">
               <span class="error-label">{{ errors[0] }}</span>
             </ValidationProvider>
           </div>
 
           <div class="form-group">
-            <ValidationProvider name="State" rules="required" v-slot="{ errors }">
-              <label for="state" class="city-state-input">State</label>
-              <select id="state-input" v-model="state">
+            <ValidationProvider
+              name="State"
+              rules="required"
+              v-slot="{ errors }"
+            >
+              <label for="state" class="city-state-label">State</label>
+              <select
+                id="state-input"
+                v-model="state"
+                class="custom-select custom-select-sm w-25"
+              >
                 <option disabled value="">Please select a state</option>
                 <option v-for="stateOption in stateOptions" :key="stateOption.abbreviation">
                   {{stateOption.name}}
@@ -118,13 +134,22 @@ export default {
     margin-bottom: 15px;
   }
 
-  .city-state-input {
+  .city-state-label {
     width: 40px;
+  }
+
+  .custom-select {
+    font-family: inherit;
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: #666666;
+    color: #000;
   }
 
   .error-label {
     color: #FF0000;
   }
+
   .loader {
     margin: auto;
     border: 7px solid #f3f3f3;
