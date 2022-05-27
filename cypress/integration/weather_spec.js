@@ -15,5 +15,13 @@ describe('Weather retrieval', function() {
     // Test caching
     cy.get('.btn').contains('Get forecast').click();
     cy.get('p').contains('Cache hit: true');
-  })
-})
+
+    // Test validation
+    cy.get('#city-input').clear();
+    cy.get('.error-label').should('have.text', 'City is not valid.');
+    cy.get('.btn').should('be.disabled');
+    cy.get('#city-input').type('New York');
+    cy.get('.error-label').should('not.be.visible');
+    cy.get('.btn').should('not.be.disabled');
+  });
+});
