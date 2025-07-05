@@ -44,8 +44,10 @@ yarn cypress open
 
 7. Run the webpack dev server
 ```
-./bin/webpack-dev-server
+NODE_OPTIONS=--openssl-legacy-provider ./bin/webpack-dev-server
 ```
+- TODO:
+  - Update Vue and Node packages
 
 8. Run the rails server
 ```
